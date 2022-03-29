@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
-
 
 @Getter
 @Setter
 @Entity
-@Table(name ="member")
+@Table(name = "member")
 public class Member {
 
     @Id
@@ -24,6 +22,7 @@ public class Member {
     private MemberStatus status;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Lend> lends;
 }
+

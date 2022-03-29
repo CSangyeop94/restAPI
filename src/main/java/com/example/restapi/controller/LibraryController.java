@@ -10,18 +10,28 @@ import com.example.restapi.model.request.MemberCreationRequest;
 import com.example.restapi.service.LibraryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/library")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class LibraryController {
+
     private final LibraryService libraryService;
 
-
-    // GET 도서ID로 도서 조회
     @GetMapping("/book")
     public ResponseEntity readBooks(@RequestParam(required = false) String isbn) {
         if (isbn == null) {
@@ -29,46 +39,56 @@ public class LibraryController {
         }
         return ResponseEntity.ok(libraryService.readBook(isbn));
     }
-    // GET 도서ID로 도서 조회
+
     @GetMapping("/book/{bookId}")
     public ResponseEntity<Book> readBook (@PathVariable Long bookId) {
         return ResponseEntity.ok(libraryService.readBook(bookId));
     }
-    // POST 도서 등록
+
     @PostMapping("/book")
     public ResponseEntity<Book> createBook (@RequestBody BookCreationRequest request) {
         return ResponseEntity.ok(libraryService.createBook(request));
     }
 
-    // DELETE 도서 삭제
+
+    @PatchMapping("/book/{bookId}")
+    public ResponseEntity<Book> updateBook (@PathVariable("bookId") Long bookId, @RequestBody BookCreationRequest request) {
+        return ResponseEntity.ok(libraryService.updateBook(bookId, request));
+    }
+
+    @PostMapping("/author")
+    public ResponseEntity<Author> createAuthor (@RequestBody AuthorCreationRequest request) {
+        return ResponseEntity.ok(libraryService.createAuthor(request));
+    }
+
+    @GetMapping("/author")
+    public ResponseEntity<List<Author>> readAuthors () {
+        return ResponseEntity.ok(libraryService.readAuthors());
+    }
+
     @DeleteMapping("/book/{bookId}")
     public ResponseEntity<Void> deleteBook (@PathVariable Long bookId) {
         libraryService.deleteBook(bookId);
         return ResponseEntity.ok().build();
     }
 
-    // POST 회원 등록
     @PostMapping("/member")
     public ResponseEntity<Member> createMember (@RequestBody MemberCreationRequest request) {
         return ResponseEntity.ok(libraryService.createMember(request));
     }
 
-    // PATCH 회원 수정
+    @GetMapping("/member")
+    public ResponseEntity<List<Member>> readMembers () {
+        return ResponseEntity.ok(libraryService.readMembers());
+    }
+
     @PatchMapping("/member/{memberId}")
     public ResponseEntity<Member> updateMember (@RequestBody MemberCreationRequest request, @PathVariable Long memberId) {
         return ResponseEntity.ok(libraryService.updateMember(memberId, request));
     }
 
-    // POST 도서 대출
     @PostMapping("/book/lend")
     public ResponseEntity<List<String>> lendABook(@RequestBody BookLendRequest bookLendRequests) {
-        return ResponseEntity.ok(libraryService.lendABook((List<BookLendRequest>) bookLendRequests));
-    }
-    // 도서 저자 추가
-    @PostMapping("/author")
-    public ResponseEntity<Author> createAuthor (@RequestBody AuthorCreationRequest request) {
-        return ResponseEntity.ok(libraryService.createAuthor(request));
+        return ResponseEntity.ok(libraryService.lendABook(bookLendRequests));
     }
 }
-
-

@@ -1,25 +1,29 @@
 package com.example.restapi.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.Instant;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name ="lend")
-
+@Table(name = "lend")
 public class Lend {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Instant startOn;
-    private Instant dueOn;
+
     @Enumerated(EnumType.ORDINAL)
     private LendStatus status;
+
+    private Instant startOn;
+
+    private Instant dueOn;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
@@ -30,5 +34,4 @@ public class Lend {
     @JoinColumn(name = "member_id")
     @JsonManagedReference
     private Member member;
-
 }
