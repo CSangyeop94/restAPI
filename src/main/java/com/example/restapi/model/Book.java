@@ -26,7 +26,8 @@ public class Book {
     private String isbn;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book",
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Lend> lends;
 
     @ManyToOne

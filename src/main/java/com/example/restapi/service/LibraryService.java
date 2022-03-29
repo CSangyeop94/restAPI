@@ -1,9 +1,9 @@
 package com.example.restapi.service;
 
-import com.example.repository.AuthorRepository;
-import com.example.repository.BookRepository;
-import com.example.repository.LendRepository;
-import com.example.repository.MemberRepository;
+import com.example.restapi.repository.AuthorRepository;
+import com.example.restapi.repository.BookRepository;
+import com.example.restapi.repository.LendRepository;
+import com.example.restapi.repository.MemberRepository;
 import com.example.restapi.model.*;
 import com.example.restapi.model.request.AuthorCreationRequest;
 import com.example.restapi.model.request.BookCreationRequest;
@@ -23,10 +23,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class LibraryService {
-    private AuthorRepository authorRepository;
-    private MemberRepository memberRepository;
-    private LendRepository lendRepository;
-    private BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
+    private final MemberRepository memberRepository;
+    private final LendRepository lendRepository;
+    private final BookRepository bookRepository;
 
     public Book readBook(Long id) {
         Optional<Book> book = bookRepository.findById(id);

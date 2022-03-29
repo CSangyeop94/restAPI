@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.restapi.repository;
 
 import com.example.restapi.model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
