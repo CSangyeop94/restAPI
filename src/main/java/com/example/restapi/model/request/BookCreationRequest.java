@@ -6,6 +6,5 @@ import lombok.Data;
 public class BookCreationRequest {
     private String name;
     private String isbn;
-    private Long authorId;
-
+    private Long id;
 }

@@ -50,7 +50,7 @@ public class LibraryService {
     }
 
     public Book createBook(BookCreationRequest book) {
-        Optional<Author> author = authorRepository.findById(book.getAuthorId());
+        Optional<Author> author = authorRepository.findById(book.getId());
         if (!author.isPresent()) {
             throw new EntityNotFoundException("Author Not Found");
         }
@@ -131,7 +131,7 @@ public class LibraryService {
     }
 
     public Book updateBook(Long bookId, BookCreationRequest request) {
-        Optional<Author> author = authorRepository.findById(request.getAuthorId());
+        Optional<Author> author = authorRepository.findById(request.getId());
         if (!author.isPresent()) {
             throw new EntityNotFoundException("Author Not Found");
         }
